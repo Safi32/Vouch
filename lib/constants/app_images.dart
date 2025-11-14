@@ -1,0 +1,32 @@
+class AppImages {
+  static const String logo = "assets/logo.png";
+  static const String googleIcon = "assets/Google Logo.png";
+  static const String appleIcon = "assets/Apple Logo.png";
+  static const String peopleIcon = "assets/people.png";
+  static const String starIcon = "assets/star.png";
+  static const String subscriptionIcon01 = "assets/icon_01.png";
+  static const String subscriptionIcon02 = "assets/icon_02.png";
+  static const String subscriptionIcon03 = "assets/icon_03.png";
+  static const String subscriptionIcon04 = "assets/icon_04.png";
+  static const String subscriptionIcon05 = "assets/subscription_icon_05.png";
+  static const String uploadPhoto = "assets/upload_photo.png";
+  static const String profileComplete = "assets/profile_complete.png";
+  static const homeIcon = "assets/home.svg";
+  static const heartIcon = "assets/heart.png";
+  static const headerLogo = "assets/header_logo.png";
+  static const trendIcon = "assets/trend-up.png";
+  static const profileIcon = "assets/profile.png";
+  static const reviewsIcon = "assets/message-text.png";
+  static const homeScreenImage = "assets/home_screen.png";
+  static const lockIcon = "assets/Lock.png";
+  static const verifiedIcon = "assets/verified_icon.png";
+  static const unverifiedIcon = "assets/unverified_icon.png";
+  static const franceflag = "assets/france_flag.png";
+  static const walletImage = "assets/wallet.png";
+  static const chatIcon = "assets/Chat.png";
+  static const notificationIcon = "assets/Notification.png";
+  static const filterImage = "assets/filter.png";
+  static const femaleIcon = "assets/female_icon.png";
+  static const vouchGoldIcon = "assets/vouch_gold_coin.png";
+  static const reveleadImage = "assets/revelead_profiles.png";
+}
