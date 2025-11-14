@@ -43,7 +43,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
-        height: 80,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -55,7 +54,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             ),
           ],
         ),
-        child: BottomNavigationBar(
+        child: SafeArea(
+          child: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
@@ -109,6 +109,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               label: 'Profile',
             ),
           ],
+        ),
         ),
       ),
     );

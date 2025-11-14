@@ -23,28 +23,40 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Filter',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
+          // Custom header
+          Container(
+            padding: const EdgeInsets.only(
+              top: 50,
+              left: 16,
+              right: 16,
+              bottom: 16,
+            ),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                const Expanded(
+                  child: Text(
+                    'Filter',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(width: 48), // To balance the back button
+              ],
+            ),
+          ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -124,12 +136,13 @@ class _FilterScreenState extends State<FilterScreen> {
                   _buildSectionTitle('Sort By'),
                   const SizedBox(height: 12),
                   _buildSortBySelection(),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 20),
+                  _buildBottomButtons(),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
-          _buildBottomButtons(),
         ],
       ),
     );
@@ -349,7 +362,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 });
               },
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: AppColors.primary),
+                side: BorderSide(color: Colors.grey[400]!),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
@@ -358,7 +371,7 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Text(
                 'Clear Filter',
                 style: TextStyle(
-                  color: AppColors.primary,
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -382,7 +395,7 @@ class _FilterScreenState extends State<FilterScreen> {
               child: const Text(
                 'Apply Filter',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),

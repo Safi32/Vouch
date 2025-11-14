@@ -29,4 +29,6 @@ class AppImages {
   static const femaleIcon = "assets/female_icon.png";
   static const vouchGoldIcon = "assets/vouch_gold_coin.png";
   static const reveleadImage = "assets/revelead_profiles.png";
+  static const newNotification = "assets/new_notification.png";
+  static const notification = "assets/Notification.png";
 }
