@@ -80,23 +80,5 @@ class ProfileComplete extends StatelessWidget {
     );
   }
 
-  void _startExploring(BuildContext context) {
-    // TODO: Navigate to main app screen or home screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Welcome to Vouch! Let's start exploring!",
-          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
 
-    // Example navigation (replace with your main screen)
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const MainScreen()),
-    //   (route) => false,
-    // );
-  }
 }

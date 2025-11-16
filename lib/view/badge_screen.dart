@@ -167,19 +167,5 @@ class BadgeScreen extends StatelessWidget {
     );
   }
 
-  void _handleNext(BuildContext context) {
-  
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Badge guide completed!",
-          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
-    
-    // Example navigation
-    Navigator.of(context).pop();
-  }
+
 }

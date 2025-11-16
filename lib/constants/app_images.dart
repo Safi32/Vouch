@@ -31,4 +31,10 @@ class AppImages {
   static const reveleadImage = "assets/revelead_profiles.png";
   static const newNotification = "assets/new_notification.png";
   static const notification = "assets/Notification.png";
+  static const warningImage = "assets/warning.png";
+  static const bookmarkIcon = "assets/bookmark.svg";
+  static const lockUpIcon = "assets/lock_up.svg";
+  static const chatIcons = "assets/chats.svg";
+  static const shareIcon = "assets/share.svg";
+  static const profilePicture = "assets/profile_picture.png";
 }

@@ -1,260 +1,353 @@
 import 'package:flutter/material.dart';
-import 'package:vouch/constants/app_images.dart';
+import 'package:get/get.dart';
+import 'package:vouch/utils/colors.dart';
 
-class ReviewScreens extends StatefulWidget {
-  final String userName;
-  
-  const ReviewScreens({
-    super.key,
-    this.userName = 'Sarah John',
-  });
+class ReviewScreen extends StatefulWidget {
+  const ReviewScreen({super.key});
 
   @override
-  State<ReviewScreens> createState() => _ReviewScreensState();
+  State<ReviewScreen> createState() => _ReviewScreenState();
 }
 
-class _ReviewScreensState extends State<ReviewScreens> {
-  // Sample reviews data
-  List<ReviewItem> reviews = [
-    ReviewItem(
-      userName: 'Sarah John',
-      isVerified: true,
-      reviewText: 'Excellent service! The product arrived quickly and exactly as described. Will definitely order again.',
-      rating: 5,
-    ),
-    ReviewItem(
-      userName: 'Sarah John',
-      isVerified: true,
-      reviewText: 'Excellent service! The product arrived quickly and exactly as described. Will definitely order again.',
-      rating: 5,
-    ),
-    ReviewItem(
-      userName: 'Sarah John',
-      isVerified: true,
-      reviewText: 'Excellent service! The product arrived quickly and exactly as described. Will definitely order again.',
-      rating: 5,
-    ),
-    ReviewItem(
-      userName: 'Sarah John',
-      isVerified: true,
-      reviewText: 'Excellent service! The product arrived quickly and exactly as described. Will definitely order again.',
-      rating: 5,
-    ),
-    ReviewItem(
-      userName: 'Sarah John',
-      isVerified: true,
-      reviewText: 'Excellent service! The product arrived quickly and exactly as described. Will definitely order again.',
-      rating: 5,
-    ),
-  ];
+class _ReviewScreenState extends State<ReviewScreen> {
+  String? selectedModel;
+
+  final List<String> models = ["Sarah Johnson", "John Deo", "Daniall"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Custom header
-            Container(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${widget.userName}\'s Reviews',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    
-                  ),
-                ],
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              floating: true,
+              snap: true,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                onPressed: () => Get.back(),
               ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Review text field
-                    _buildReviewTextField(),
-                    const SizedBox(height: 24),
-                    
-                    // Submit Review button
-                    _buildSubmitReviewButton(),
-                    const SizedBox(height: 24),
-                    
-                    // All Reviews section
-                    _buildAllReviewsSection(),
-                    const SizedBox(height: 16),
-                    
-                    // Reviews list
-                    ...reviews.map((review) => _buildReviewCard(review)),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Upgrade Now button
-                    _buildUpgradeButton(),
-                    const SizedBox(height: 20),
-                  ],
+              title: const Text(
+                "Sarah's Reviews",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.favorite, color: Colors.red),
+                  onPressed: () {},
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildReviewTextField() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue, width: 2),
-      ),
-      child: TextField(
-        maxLines: 4,
-        decoration: InputDecoration(
-          hintText: 'Share your experience with ${widget.userName}.',
-          hintStyle: TextStyle(
-            color: Colors.grey[400],
-            fontSize: 14,
-          ),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.zero,
-        ),
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-
-
-  Widget _buildSubmitReviewButton() {
-    return Container(
-      width: double.infinity,
-      height: 48,
-      child: ElevatedButton(
-        onPressed: () {
-          // Handle submit review
+          ];
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFFFA500),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          elevation: 0,
-        ),
-        child: const Text(
-          'Submit Review',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        body: _buildReviewContent(),
       ),
     );
   }
 
-  Widget _buildAllReviewsSection() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'All Reviews',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-        Text(
-          'Show (${reviews.length})',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildReviewCard(ReviewItem review) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildReviewContent() {
+    return SingleChildScrollView(
+      child: Column(
         children: [
+          _buildReviewHeader(),
+          _buildAllReviewsSection(),
+          _buildReviewsList(),
+          _buildUpgradeButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewHeader() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const Text(
+            'Is not that authentic? leave us Review.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            "Leave Review",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 20),
+
           Container(
-            width: 40,
-            height: 40,
+            padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFA500),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: Color(0xFFE0C77A), width: 1.5),
+              color: Color(0xFFFFF9EC),
             ),
-            child: const Center(
-              child: Text(
-                'S',
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: selectedModel,
+                hint: Text(
+                  "Select Model",
+                  style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                ),
+                icon: Icon(Icons.keyboard_arrow_down_rounded, size: 28),
+                isExpanded: true,
+                items: models.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: value == selectedModel
+                          ? BoxDecoration(
+                              color: Color(0xFFFFF2D1),
+                              borderRadius: BorderRadius.circular(12),
+                            )
+                          : null,
+                      child: Text(value, style: TextStyle(fontSize: 16)),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedModel = value;
+                  });
+                },
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const TextField(
+              maxLines: 4,
+              decoration: InputDecoration(
+                hintText: 'Share your experience with Sarah.',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                'Submit Review',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+                  color: Colors.black,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAllReviewsSection() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'All Reviews',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            "Showing last 5 reviews",
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewsList() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: List.generate(
+          5,
+          (index) => _buildReviewItem(
+            name: "Sarah John",
+            review:
+                "Excellent service! The product arrived quickly and exactly as described. Will definitely order again.",
+            status: index % 3 == 0
+                ? "verified"
+                : (index % 3 == 1 ? "not_verified" : "pending"),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviewItem({
+    required String name,
+    required String review,
+    required String status,
+  }) {
+    Color statusColor;
+    String statusLabel;
+
+    switch (status) {
+      case "verified":
+        statusColor = Colors.green;
+        statusLabel = "Verified";
+        break;
+
+      case "not_verified":
+        statusColor = Colors.red;
+        statusLabel = "Not Verified";
+        break;
+
+      default:
+        statusColor = Colors.orange;
+        statusLabel = "Pending";
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16, top: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CircleAvatar(
+            radius: 20,
+            backgroundColor: AppColors.primary,
+            child: Text(
+              'S',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
           const SizedBox(width: 12),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// NAME + VERIFIED ICON + STATUS BADGE + EDIT/DELETE ICONS
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      review.userName,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
+                    /// NAME + BLUE CHECK
+                    Row(
+                      children: [
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.blue,
+                          size: 16,
+                        ),
+                      ],
                     ),
-                    if (review.isVerified) ...[
-                      const SizedBox(width: 4),
-                      Image.asset(AppImages.verifiedIcon, width: 16, height: 16),
-                    ],
+
+                    /// STATUS BADGE + EDIT + DELETE
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: statusColor.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            statusLabel,
+                            style: TextStyle(
+                              color: statusColor,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(width: 8),
+
+                        /// EDIT ICON
+                        InkWell(
+                          onTap: () {
+                            _showEditReviewDialog(
+                              context: context,
+                              name: name,
+                              currentReview: review,
+                            );
+                          },
+                          child: const Icon(
+                            Icons.edit,
+                            size: 18,
+                            color: Colors.grey,
+                          ),
+                        ),
+
+                        const SizedBox(width: 8),
+
+                        /// DELETE ICON
+                        InkWell(
+                          onTap: () {
+                            _showDeleteReviewDialog(context: context);
+                          },
+                          child: const Icon(
+                            Icons.delete_outline,
+                            size: 18,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
+
                 const SizedBox(height: 4),
+
+                /// REVIEW TEXT
                 Text(
-                  review.reviewText,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
+                  review,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black87,
                     height: 1.4,
                   ),
                 ),
@@ -266,44 +359,406 @@ class _ReviewScreensState extends State<ReviewScreens> {
     );
   }
 
+  /// DELETE REVIEW DIALOG
+  void _showDeleteReviewDialog({required BuildContext context}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Delete Review',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Once deleted, your review will be permanently removed.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Delete',
+                          style: TextStyle(
+                            color: Color(0xFF007AFF),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Keep Review',
+                          style: TextStyle(
+                            color: Color(0xFF007AFF),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showEditReviewDialog({
+    required BuildContext context,
+    required String name,
+    required String currentReview,
+  }) {
+    final TextEditingController reviewController = TextEditingController(
+      text: currentReview,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Edit Review',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: reviewController,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: 'Share your experience with Sarah',
+                    hintStyle: TextStyle(color: Colors.grey[400], fontSize: 13),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(
+                        color: AppColors.primary,
+                        width: 1.5,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(12),
+                  ),
+                  style: const TextStyle(fontSize: 13),
+                ),
+                const SizedBox(height: 24),
+
+                // Buttons
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Add your update logic here
+                          String updatedReview = reviewController.text;
+                          Navigator.pop(context);
+                          // Update the review in your data source
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Update',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Widget _buildReviewItem({
+  //   required String name,
+  //   required String review,
+  //   required String status,
+  // }) {
+  //   Color statusColor;
+  //   String statusLabel;
+
+  //   switch (status) {
+  //     case "verified":
+  //       statusColor = Colors.green;
+  //       statusLabel = "Verified";
+  //       break;
+
+  //     case "not_verified":
+  //       statusColor = Colors.red;
+  //       statusLabel = "Not Verified";
+  //       break;
+
+  //     default:
+  //       statusColor = Colors.orange;
+  //       statusLabel = "Pending";
+  //   }
+
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 16, top: 8),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const CircleAvatar(
+  //           radius: 20,
+  //           backgroundColor: AppColors.primary,
+  //           child: Text(
+  //             'S',
+  //             style: TextStyle(
+  //               color: Colors.black,
+  //               fontWeight: FontWeight.bold,
+  //             ),
+  //           ),
+  //         ),
+
+  //         const SizedBox(width: 12),
+
+  //         Expanded(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               /// NAME + VERIFIED ICON + STATUS BADGE + EDIT/DELETE ICONS
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   /// NAME + BLUE CHECK
+  //                   Row(
+  //                     children: [
+  //                       Text(
+  //                         name,
+  //                         style: const TextStyle(
+  //                           fontSize: 14,
+  //                           fontWeight: FontWeight.w600,
+  //                           color: Colors.black,
+  //                         ),
+  //                       ),
+  //                       const SizedBox(width: 4),
+  //                       const Icon(
+  //                         Icons.verified,
+  //                         color: Colors.blue,
+  //                         size: 16,
+  //                       ),
+  //                     ],
+  //                   ),
+
+  //                   /// STATUS BADGE + EDIT + DELETE
+  //                   Row(
+  //                     children: [
+  //                       Container(
+  //                         padding: const EdgeInsets.symmetric(
+  //                           horizontal: 10,
+  //                           vertical: 4,
+  //                         ),
+  //                         decoration: BoxDecoration(
+  //                           color: statusColor.withOpacity(0.15),
+  //                           borderRadius: BorderRadius.circular(12),
+  //                         ),
+  //                         child: Text(
+  //                           statusLabel,
+  //                           style: TextStyle(
+  //                             color: statusColor,
+  //                             fontSize: 11,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                       ),
+
+  //                       const SizedBox(width: 8),
+
+  //                       /// EDIT ICON
+  //                       InkWell(
+  //                         onTap: () {},
+  //                         child: const Icon(
+  //                           Icons.edit,
+  //                           size: 18,
+  //                           color: Colors.grey,
+  //                         ),
+  //                       ),
+
+  //                       const SizedBox(width: 8),
+
+  //                       /// DELETE ICON
+  //                       InkWell(
+  //                         onTap: () {},
+  //                         child: const Icon(
+  //                           Icons.delete_outline,
+  //                           size: 18,
+  //                           color: Colors.red,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+
+  //               const SizedBox(height: 4),
+
+  //               /// REVIEW TEXT
+  //               Text(
+  //                 review,
+  //                 style: const TextStyle(
+  //                   fontSize: 12,
+  //                   color: Colors.black87,
+  //                   height: 1.4,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _buildUpgradeButton() {
     return Container(
-      width: double.infinity,
-      height: 48,
-      child: ElevatedButton(
-        onPressed: () {
-          // Handle upgrade
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFFFA500),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFFFC107), width: 2),
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Upgrade your subscription to unlock their full review history.',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 12, color: AppColors.primary),
           ),
-          elevation: 0,
-        ),
-        child: const Text(
-          'Upgrade Now',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                'Upgrade Now',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
-}
-
-class ReviewItem {
-  final String userName;
-  final bool isVerified;
-  final String reviewText;
-  final int rating;
-
-  ReviewItem({
-    required this.userName,
-    required this.isVerified,
-    required this.reviewText,
-    required this.rating,
-  });
 }

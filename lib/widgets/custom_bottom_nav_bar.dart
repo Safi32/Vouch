@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vouch/constants/app_images.dart';
 import 'package:vouch/utils/colors.dart';
 import 'package:vouch/view/screens/home_screen.dart';
+import 'package:vouch/view/screens/review_screen.dart';
 import 'package:vouch/view/screens/saved_screen.dart';
 import 'package:vouch/view/screens/dashboard_screen.dart';
-import 'package:vouch/view/screens/reviews_screen.dart';
 import 'package:vouch/view/screens/profile_screen.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -27,7 +27,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       const HomeScreen(),
       const SavedScreen(),
       const DashboardScreen(),
-      const ReviewsScreen(),
+      const ReviewScreen(),
       const ProfileScreen(),
     ];
   }

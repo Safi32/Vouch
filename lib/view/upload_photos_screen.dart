@@ -307,19 +307,5 @@ class _UploadPhotosScreenState extends State<UploadPhotosScreen> {
     );
   }
   
-  void _saveAndContinue() {
-    // Show success message
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Photos saved successfully!",
-          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
-    
-    // Navigate to Profile Complete screen
-    Get.to(() => const ProfileComplete());
-  }
+ 
 }

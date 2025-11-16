@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'dart:ui';
 import 'package:vouch/constants/app_images.dart';
 import 'package:vouch/view/screens/notification_screen.dart';
+import 'package:vouch/view/screens/messages_screen.dart';
 import 'package:vouch/widgets/location_selector.dart';
 import 'package:vouch/view/screens/popup_verified_screen.dart';
 import 'package:vouch/view/screens/filter_screen.dart';
@@ -39,9 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            print(
-                              'Country & City clicked. Current state: $showLocationSelector',
-                            );
+                            
                             setState(() {
                               showLocationSelector = !showLocationSelector;
                             });
@@ -64,7 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        Image.asset(AppImages.chatIcon),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const MessagesScreen());
+                          },
+                          child: Image.asset(AppImages.chatIcon),
+                        ),
                         SizedBox(width: 10),
                         GestureDetector(
                           onTap: () {

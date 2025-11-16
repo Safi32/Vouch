@@ -23,8 +23,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
   String? _selectedLanguage;
   String? _selectedTravel;
   String? _selectedAgePreference;
-  String? _selectedBodyType;
-  String? _selectedMusical;
+
   String? _selectedZodiac;
   String? _selectedSmoking;
   String? _selectedEyeColor;
@@ -85,18 +84,6 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
     'Younger',
     'Same age',
     'Older',
-    'No preference',
-  ];
-
- 
-  final List<String> _musicalOptions = [
-    'Select Musical Preference',
-    'Pop',
-    'Rock',
-    'Jazz',
-    'Classical',
-    'Hip Hop',
-    'Electronic',
     'No preference',
   ];
 
@@ -284,7 +271,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                 selectedValue: _selectedEyeColor,
                 onChanged: (value) {
                   setState(() {
-                    _selectedBodyType = value;
+                    _selectedEyeColor = value;
                   });
                 },
               ),

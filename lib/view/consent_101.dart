@@ -217,19 +217,5 @@ class Consent101 extends StatelessWidget {
     );
   }
 
-  void _handleNext(BuildContext context) {
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Consent guidelines acknowledged!",
-          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      ),
-    );
 
-    // Navigate back or to next screen
-    Navigator.of(context).pop();
-  }
 }
